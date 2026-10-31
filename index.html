@@ -48,7 +48,6 @@
             z-index: 1;
         }
 
-        /* Botón Flotante de Música */
         .music-btn {
             position: fixed;
             top: 20px;
@@ -294,15 +293,15 @@
 </head>
 <body>
 
-    <!-- Botón de Trap / Música Flotante -->
+    <!-- Botón de Control de Música -->
     <button class="music-btn" id="musicToggle" onclick="toggleAudio()">
         <span id="musicIcon">🔥</span> <span id="musicText">Reproducir Trap</span>
     </button>
 
-    <!-- Audio de Trap Instrumental con respaldo directo -->
-    <audio id="bgMusic" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=dark-trap-beat-110078.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Reproductor de YouTube Oculto (Estilo Trap Instrumental de fondo) -->
+    <div id="youtube-player" style="display:none;">
+        <iframe id="yt-iframe" width="200" height="200" src="https://www.youtube.com/embed/5qap5aO4i9A?enablejsapi=1&loop=1&playlist=5qap5aO4i9A" frameborder="0"></iframe>
+    </div>
 
     <canvas id="bg-canvas"></canvas>
 
@@ -433,38 +432,40 @@
 
     <div id="toast" class="toast">🎃 ¡Discord copiado al portapapeles!</div>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        const audio = document.getElementById("bgMusic");
-        const musicIcon = document.getElementById("musicIcon");
-        const musicText = document.getElementById("musicText");
+        let player;
         let isPlaying = false;
 
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-iframe', {
+                events: {
+                    'onReady': () => { console.log("YouTube Player Ready"); }
+                }
+            });
+        }
+
         function toggleAudio() {
+            const musicIcon = document.getElementById("musicIcon");
+            const musicText = document.getElementById("musicText");
+
+            if (!player || typeof player.playVideo !== 'function') {
+                alert("Cargando reproductor, espera un segundo y vuelve a intentar.");
+                return;
+            }
+
             if (isPlaying) {
-                audio.pause();
+                player.pauseVideo();
                 musicIcon.textContent = "🔥";
                 musicText.textContent = "Reproducir Trap";
                 isPlaying = false;
             } else {
-                audio.play().then(() => {
-                    musicIcon.textContent = "🔊";
-                    musicText.textContent = "Pausar Trap";
-                    isPlaying = true;
-                }).catch(e => console.log("Audio play blocked:", e));
+                player.playVideo();
+                musicIcon.textContent = "🔊";
+                musicText.textContent = "Pausar Trap";
+                isPlaying = true;
             }
         }
-
-        // Activación automática al primer toque o clic en cualquier parte de la web
-        document.body.addEventListener('click', function initialPlay() {
-            if (!isPlaying) {
-                audio.play().then(() => {
-                    musicIcon.textContent = "🔊";
-                    musicText.textContent = "Pausar Trap";
-                    isPlaying = true;
-                }).catch(() => {});
-            }
-            document.body.removeEventListener('click', initialPlay);
-        }, { once: true });
 
         function copyDiscord() {
             navigator.clipboard.writeText("kxdxm0");
