@@ -6,13 +6,11 @@
     <title>KxDxS | Staff & SS Manager - Halloween Edition</title>
     <style>
         :root {
-            --bg-color: #05070e;
+            --bg-color: #06080f;
             --card-bg: rgba(13, 17, 28, 0.85);
-            --border-color: rgba(249, 115, 22, 0.35);
+            --border-color: rgba(249, 115, 22, 0.3);
             --primary: #f97316;
-            --primary-glow: rgba(249, 115, 22, 0.5);
             --accent: #a855f7;
-            --accent-glow: rgba(168, 85, 247, 0.5);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
@@ -50,6 +48,32 @@
             z-index: 1;
         }
 
+        /* Botón Flotante de Música */
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            background: rgba(17, 24, 39, 0.9);
+            border: 1px solid var(--primary);
+            color: #fdba74;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.7);
+        }
+
         header {
             text-align: center;
             margin-bottom: 50px;
@@ -57,20 +81,19 @@
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 900;
             background: linear-gradient(135deg, #f97316, #fb923c, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
-            filter: drop-shadow(0 0 25px rgba(249, 115, 22, 0.4));
+            text-shadow: 0 0 30px rgba(249, 115, 22, 0.4);
         }
 
         .subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
-            margin-bottom: 25px;
-            font-weight: 500;
+            margin-bottom: 20px;
         }
 
         .badge-container {
@@ -82,39 +105,20 @@
         }
 
         .badge {
-            background: rgba(249, 115, 22, 0.12);
+            background: rgba(249, 115, 22, 0.15);
             border: 1px solid rgba(249, 115, 22, 0.4);
             padding: 8px 18px;
             border-radius: 20px;
             font-size: 0.95rem;
             font-weight: 600;
             color: #fdba74;
-            box-shadow: 0 0 15px rgba(249, 115, 22, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        .badge:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
-        }
-
-        .badge-purple {
-            background: rgba(168, 85, 247, 0.12);
-            border-color: rgba(168, 85, 247, 0.4);
-            color: #d8b4fe;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
-        }
-
-        .badge-purple:hover {
-            border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.1);
         }
 
         .card {
             background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 35px;
@@ -127,18 +131,18 @@
         .card:hover {
             transform: translateY(-6px) scale(1.01);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(249, 115, 22, 0.25), inset 0 0 15px rgba(249, 115, 22, 0.1);
+            box-shadow: 0 20px 40px rgba(249, 115, 22, 0.2), inset 0 0 15px rgba(249, 115, 22, 0.1);
         }
 
         h2 {
-            font-size: 1.65rem;
+            font-size: 1.6rem;
             color: #fed7aa;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
-            border-bottom: 2px solid rgba(249, 115, 22, 0.25);
-            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            padding-bottom: 10px;
         }
 
         p, li {
@@ -155,59 +159,30 @@
 
         .server-item {
             background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
             border-radius: 14px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .server-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--primary), var(--accent));
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
         .server-item:hover {
-            border-color: rgba(249, 115, 22, 0.5);
+            border-color: rgba(249, 115, 22, 0.4);
             transform: translateX(4px);
-            background: rgba(24, 33, 58, 0.85);
-        }
-
-        .server-item:hover::before {
-            opacity: 1;
         }
 
         .server-name {
-            font-weight: 800;
+            font-weight: 700;
             color: #f1f5f9;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             margin-bottom: 4px;
         }
 
         .server-role {
             font-size: 0.9rem;
             color: #fb923c;
-            font-weight: 700;
+            font-weight: 600;
             margin-bottom: 8px;
             display: inline-block;
-            background: rgba(249, 115, 22, 0.1);
-            padding: 2px 10px;
-            border-radius: 6px;
-            border: 1px solid rgba(249, 115, 22, 0.2);
-        }
-
-        .server-role-ss {
-            color: #c084fc;
-            background: rgba(168, 85, 247, 0.1);
-            border-color: rgba(168, 85, 247, 0.3);
         }
 
         .actions-grid {
@@ -257,34 +232,32 @@
             box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
         }
 
-        /* Widget interactivo de Discord */
         .discord-widget {
             background: rgba(17, 24, 39, 0.95);
             border: 1px solid #5865F2;
             border-radius: 16px;
-            padding: 22px;
-            max-width: 400px;
-            margin: 25px auto 0 auto;
+            padding: 20px;
+            max-width: 380px;
+            margin: 20px auto 0 auto;
             display: flex;
             align-items: center;
-            gap: 16px;
-            box-shadow: 0 10px 25px rgba(88, 101, 242, 0.25);
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(88, 101, 242, 0.2);
             animation: pulseGlow 3s infinite;
         }
 
         .discord-avatar {
-            width: 62px;
-            height: 62px;
-            background: linear-gradient(135deg, #f97316, #a855f7);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #5865F2, #a855f7);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
-            font-weight: 900;
+            font-size: 1.5rem;
+            font-weight: bold;
             color: white;
-            box-shadow: 0 0 18px rgba(249, 115, 22, 0.6);
-            border: 2px solid #ffffff;
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
         }
 
         .toast {
@@ -293,10 +266,10 @@
             right: 25px;
             background: linear-gradient(135deg, #f97316, #ea580c);
             color: white;
-            padding: 14px 26px;
-            border-radius: 12px;
+            padding: 12px 24px;
+            border-radius: 10px;
             font-weight: 700;
-            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.6);
+            box-shadow: 0 5px 20px rgba(249, 115, 22, 0.5);
             display: none;
             z-index: 1000;
             animation: fadeIn 0.3s ease;
@@ -321,6 +294,16 @@
 </head>
 <body>
 
+    <!-- Botón de Música Flotante -->
+    <button class="music-btn" id="musicToggle" onclick="toggleAudio()">
+        <span id="musicIcon">🎵</span> <span id="musicText">Reproducir Audio</span>
+    </button>
+
+    <!-- Audio de ambiente en bucle -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-creepy-dark-mysterious-ambient-synth-1144.mp3" type="audio/mpeg">
+    </audio>
+
     <canvas id="bg-canvas"></canvas>
 
     <div class="container">
@@ -329,9 +312,9 @@
             <p class="subtitle">Staff Senior • SS Manager (Administración de Staff) • 22 Años</p>
             <div class="badge-container">
                 <span class="badge">🕸️ Trayectoria desde 2020 (1.8)</span>
-                <span class="badge badge-purple">🔥 Especialista en BoxPvP</span>
+                <span class="badge">🔥 Especialista en BoxPvP</span>
                 <span class="badge">👁️ Screenshare Avanzado</span>
-                <span class="badge badge-purple">🔗 NameMC: M70KxS</span>
+                <span class="badge">🔗 NameMC: M70KxS</span>
             </div>
         </header>
 
@@ -344,7 +327,7 @@
             <h2>⚡ Experiencia Destacada</h2>
             <div class="grid-2">
                 <div>
-                    <h3 style="color:#fb923c; margin-bottom:14px; font-size:1.15rem;">Redes Principales (1.8)</h3>
+                    <h3 style="color:#fb923c; margin-bottom:12px; font-size:1.1rem;">Redes Principales (1.8)</h3>
                     <div class="server-item">
                         <div class="server-name">Minelatino</div>
                         <span class="server-role">Staff / Moderador</span>
@@ -356,14 +339,14 @@
                         <p>Moderación activa in-game y supervisión en modalidades competitivas.</p>
                     </div>
                     <div class="server-item">
-                        <div class="server-name">AkumaMC</div>
+                        <div class="server-name">Akumamc</div>
                         <span class="server-role">Staff / Moderador</span>
                         <p>Gestión de incidencias y soporte técnico a jugadores.</p>
                     </div>
                 </div>
 
                 <div>
-                    <h3 style="color:#c084fc; margin-bottom:14px; font-size:1.15rem;">BoxPvP & Moderación</h3>
+                    <h3 style="color:#c084fc; margin-bottom:12px; font-size:1.1rem;">BoxPvP & Moderación</h3>
                     <div class="server-item">
                         <div class="server-name">Regorland</div>
                         <span class="server-role">Moderador (Mod)</span>
@@ -383,17 +366,17 @@
             </div>
 
             <div style="margin-top: 25px;">
-                <h3 style="color:#f97316; margin-bottom:14px; font-size:1.15rem;">Gestión & Screenshare (SS Manager)</h3>
+                <h3 style="color:#f97316; margin-bottom:12px; font-size:1.1rem;">Gestión & Screenshare (SS Manager)</h3>
                 <div class="grid-2">
                     <div class="server-item">
                         <div class="server-name">SneakMC</div>
-                        <span class="server-role server-role-ss">SS Manager (SS Ma)</span>
+                        <span class="server-role">SS Manager (SS Ma)</span>
                         <p>Gestión del departamento de Screenshare, capacitación de staff y veredictos en apelaciones.</p>
                     </div>
                     <div class="server-item">
                         <div class="server-name">Kowamc</div>
-                        <span class="server-role server-role-ss">SS Manager (SS Ma)</span>
-                        <p>Dirección de revisiones de pantalla, control de cheaters avanzados y supervisión del equipo de SS.</p>
+                        <span class="server-role">SS Manager (SS Ma)</span>
+                        <p>Dirección de revisiones de pantalla, control de cheaters avanzados y supervisión de equipo de SS.</p>
                     </div>
                 </div>
                 
@@ -437,12 +420,12 @@
             <div class="discord-widget">
                 <div class="discord-avatar">K</div>
                 <div style="text-align: left;">
-                    <div style="font-weight: 800; color: #f8fafc; font-size: 1.15rem;">KxDxS</div>
-                    <div style="font-size: 0.85rem; color: #22c55e; display: flex; align-items: center; gap: 6px; margin-top: 2px; font-weight: 600;">
+                    <div style="font-weight: 700; color: #f8fafc; font-size: 1.1rem;">KxDxS</div>
+                    <div style="font-size: 0.85rem; color: #22c55e; display: flex; align-items: center; gap: 6px; margin-top: 2px;">
                         <span style="width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #22c55e;"></span> 
                         Disponible para contrataciones
                     </div>
-                    <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 4px;">Discord Tag: <strong style="color: #cbd5e1;">kxdxm0</strong></div>
+                    <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;">Tag: kxdxm0</div>
                 </div>
             </div>
         </section>
@@ -451,14 +434,40 @@
     <div id="toast" class="toast">🎃 ¡Discord copiado al portapapeles!</div>
 
     <script>
-        function copyDiscord() {
-            var tempInput = document.createElement("input");
-            tempInput.value = "kxdxm0";
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
+        // Función para reproducir/pausar la música
+        const audio = document.getElementById("bgMusic");
+        const musicIcon = document.getElementById("musicIcon");
+        const musicText = document.getElementById("musicText");
+        let isPlaying = false;
 
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                musicIcon.textContent = "🎵";
+                musicText.textContent = "Reproducir Audio";
+                isPlaying = false;
+            } else {
+                audio.play();
+                musicIcon.textContent = "🔊";
+                musicText.textContent = "Pausar Audio";
+                isPlaying = true;
+            }
+        }
+
+        // Intenta reproducir al hacer cualquier clic inicial en la página
+        document.body.addEventListener('click', function initialPlay() {
+            if (!isPlaying) {
+                audio.play().then(() => {
+                    musicIcon.textContent = "🔊";
+                    musicText.textContent = "Pausar Audio";
+                    isPlaying = true;
+                }).catch(() => {});
+            }
+            document.body.removeEventListener('click', initialPlay);
+        }, { once: true });
+
+        function copyDiscord() {
+            navigator.clipboard.writeText("kxdxm0");
             const toast = document.getElementById("toast");
             toast.style.display = "block";
             setTimeout(() => {
@@ -466,12 +475,12 @@
             }, 2500);
         }
 
-        // Canvas animado de partículas estilo Halloween / Minecraft
+        // Fondo de partículas místicas flotantes
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
         let particles = [];
-        const numParticles = 60;
+        const numParticles = 50;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -485,10 +494,10 @@
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                size: Math.random() * 4 + 1.5,
-                speedX: (Math.random() - 0.5) * 0.5,
-                speedY: -Math.random() * 0.9 - 0.2, // Chispas místicas ascendentes
-                color: Math.random() > 0.4 ? 'rgba(249, 115, 22, 0.6)' : 'rgba(168, 85, 247, 0.6)'
+                size: Math.random() * 4 + 1,
+                speedX: (Math.random() - 0.5) * 0.4,
+                speedY: -Math.random() * 0.8 - 0.2,
+                color: Math.random() > 0.4 ? 'rgba(249, 115, 22, 0.5)' : 'rgba(168, 85, 247, 0.5)'
             });
         }
 
