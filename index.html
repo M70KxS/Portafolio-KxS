@@ -294,14 +294,14 @@
 </head>
 <body>
 
-    <!-- Botón de Música Flotante -->
+    <!-- Botón de Trap / Música Flotante -->
     <button class="music-btn" id="musicToggle" onclick="toggleAudio()">
-        <span id="musicIcon">🎵</span> <span id="musicText">Reproducir Audio</span>
+        <span id="musicIcon">🔥</span> <span id="musicText">Reproducir Trap</span>
     </button>
 
-    <!-- Audio de ambiente en bucle -->
+    <!-- Audio de Trap Instrumental con respaldo directo -->
     <audio id="bgMusic" loop preload="auto">
-        <source src="https://assets.mixkit.co/music/preview/mixkit-creepy-dark-mysterious-ambient-synth-1144.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=dark-trap-beat-110078.mp3" type="audio/mpeg">
     </audio>
 
     <canvas id="bg-canvas"></canvas>
@@ -434,7 +434,6 @@
     <div id="toast" class="toast">🎃 ¡Discord copiado al portapapeles!</div>
 
     <script>
-        // Función para reproducir/pausar la música
         const audio = document.getElementById("bgMusic");
         const musicIcon = document.getElementById("musicIcon");
         const musicText = document.getElementById("musicText");
@@ -443,23 +442,24 @@
         function toggleAudio() {
             if (isPlaying) {
                 audio.pause();
-                musicIcon.textContent = "🎵";
-                musicText.textContent = "Reproducir Audio";
+                musicIcon.textContent = "🔥";
+                musicText.textContent = "Reproducir Trap";
                 isPlaying = false;
             } else {
-                audio.play();
-                musicIcon.textContent = "🔊";
-                musicText.textContent = "Pausar Audio";
-                isPlaying = true;
+                audio.play().then(() => {
+                    musicIcon.textContent = "🔊";
+                    musicText.textContent = "Pausar Trap";
+                    isPlaying = true;
+                }).catch(e => console.log("Audio play blocked:", e));
             }
         }
 
-        // Intenta reproducir al hacer cualquier clic inicial en la página
+        // Activación automática al primer toque o clic en cualquier parte de la web
         document.body.addEventListener('click', function initialPlay() {
             if (!isPlaying) {
                 audio.play().then(() => {
                     musicIcon.textContent = "🔊";
-                    musicText.textContent = "Pausar Audio";
+                    musicText.textContent = "Pausar Trap";
                     isPlaying = true;
                 }).catch(() => {});
             }
@@ -475,7 +475,7 @@
             }, 2500);
         }
 
-        // Fondo de partículas místicas flotantes
+        // Fondo de partículas místicas / Halloween flotantes
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
